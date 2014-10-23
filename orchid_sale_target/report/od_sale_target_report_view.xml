@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      <record id="od_sale_target_report_view_tree" model="ir.ui.view">
+            <field name="name">od.sale.target.report.view.tree</field>
+            <field name="model">od.sale.target.report.view</field>
+            <field name="priority">27</field>
+            <field name="arch" type="xml">
+                <tree  create="false">
+                     <field name="target_id"/>
+                      <field name="fiscalyear_id" />
+                    <field name="product_id"/>
+                    <field name="brand_id"/>
+                    <field name="category_id"/>
+                    <field name="customer_id" />
+                    <field name="salesman_id"/>  
+                      <field name="company_id" />
+                    <field name="warehouse_id"/> 
+
+
+
+                    <field name="p1_qty"/>
+                    <field name="p1_amount" />
+                    <field name="p2_qty" />
+                    <field name="p2_amount" />
+                    <field name="p3_qty" />
+                    <field name="p3_amount" />
+                    <field name="p4_qty" />
+                    <field name="p4_amount" />
+                    <field name="p5_qty" />
+                    <field name="p5_amount" />
+                    <field name="p6_qty" />
+                    <field name="p6_amount" />
+                    <field name="p7_qty" />
+                    <field name="p7_amount" />
+                    <field name="p8_qty" />
+                    <field name="p8_amount" />
+                    <field name="p9_qty" />
+                    <field name="p9_amount" />
+                    <field name="p10_qty" />
+                    <field name="p10_amount" />
+                    <field name="p11_qty" />
+                    <field name="p11_amount" />
+                    <field name="p12_qty" />
+                    <field name="p12_amount" />
+                    <field name="total_computed_quantity" />
+                    <field name="total_computed_amount" />
+                </tree>
+            </field>
+        </record>
+
+<record model="ir.ui.view" id="od_sale_target_report_view_graph">
+            <field name="name">od.sale.target.report.view.graph</field>
+            <field name="model">od.sale.target.report.view</field>
+            <field name="arch" type="xml">
+                <graph type="bar">
+                    <field name="target_id"/>
+                      <field name="fiscalyear_id" />
+                    <field name="company_id" />
+                    <field name="warehouse_id"/> 
+                    
+                    <field name="product_id"/>
+                    <field name="brand_id"/>
+                    <field name="category_id"/>
+                
+                    <field name="customer_id" />
+                    <field name="salesman_id"/>
+                    
+                         
+                </graph>
+            </field>
+        </record>
+<record id="od_sale_target_report_view_search" model="ir.ui.view">
+        <field name="name">od.sale.target.report.view.search</field>
+        <field name="model">od.sale.target.report.view</field>
+        <field name="arch" type="xml">
+            <search >
+                                   <field name="target_id"/>
+                      <field name="fiscalyear_id" />
+                    
+                    <field name="product_id"/>
+                    <field name="brand_id"/>
+                    <field name="category_id"/>
+                      <field name="company_id" />
+                    <field name="warehouse_id"/> 
+                
+                    <field name="customer_id" />
+                    <field name="salesman_id"/>
+            <group expand="1" string="Group By...">
+                    
+                     <filter string="Sale Target" icon="terp-personal" name="target_id" context="{'group_by':'target_id'}"/>
+                      <filter string="Fiscal Year" icon="terp-personal" name="fiscalyear_id" context="{'group_by':'fiscalyear_id'}"/>
+                     <filter string="Product" icon="terp-personal" name="product_id" context="{'group_by':'product_id'}"/>
+                     <filter string="Brand" icon="terp-personal" name="brand_id" context="{'group_by':'brand_id'}"/>
+                     <filter string="Category" icon="terp-personal" name="category_id" context="{'group_by':'category_id'}"/>
+                     <filter string="Customer" icon="terp-personal" name="customer_id" context="{'group_by':'customer_id'}"/>
+                     <filter string="SalesMan" icon="terp-personal" name="salesman_id" context="{'group_by':'salesman_id'}"/>
+                     <filter string="Company" icon="terp-personal" name="company_id" context="{'group_by':'company_id'}"/>
+                     <filter string="Branch" icon="terp-personal" name="warehouse_id" context="{'group_by':'warehouse_id'}"/>
+            </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_od_sale_target_report_view" model="ir.actions.act_window">
+        <field name="name">Sale Forecast</field>
+        <field name="res_model">od.sale.target.report.view</field>
+        <field name="view_type">tree</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="od_sale_target_report_view_search"/>
+        <field name="context">{}</field>
+        <field name="help"></field>
+    </record>
+
+        <menuitem action="action_od_sale_target_report_view" id="menu_sale_target_report" parent="base.next_id_64" sequence="32"/>
+    </data>
+</openerp>

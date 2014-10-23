@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+    <record model="ir.ui.view" id="od_sales_target_tree">
+        <field name="name">od.sales.target.tree.view</field>
+        <field name="model">od.sales.target</field>
+        <field name="arch" type="xml">
+            <tree string="Target Master" >
+                     <field name="name"/>
+                      <field name="fiscalyear_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+            </tree>
+       </field>
+    </record>
+
+
+  <record model="ir.ui.view" id="od_sales_target_graph">
+    <field name="name">od.sales.target.graph.view</field>
+    <field name="model">od.sales.target</field>
+    <field name="arch" type="xml">
+           <graph string="Sales Forecast" type="bar">
+               <field name="name" type="row"/>
+           </graph>
+     </field>
+   </record>
+   
+
+    <record model="ir.ui.view" id="od_sales_target_form">
+        <field name="name">od.sales.target.form.view</field>
+        <field name="model">od.sales.target</field>
+        <field name="arch" type="xml">
+            <form string="Target Master" version="7.0">
+                 <header>
+                     <button name="action_progress" type="object" states="draft" string="Confirm" />
+                     <button name="action_done" type="object" string="Done" states="progress"/>
+                     <field name="state" widget="statusbar" statusbar_visible="draft,progress,done"/>
+                 </header>
+              <sheet>
+                    <div class="oe_button_box oe_right">
+                        <button class="oe_inline oe_stat_button" name="action_view_generate" type="object" 
+                            icon="fa-strikethrough" string="Generate"/>
+                    </div>
+                    <group>
+                         <group>
+                                 <field name="name" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="company_id" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                  <field name="pricelist_id" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="period_type" required="1" attrs="{'invisible': [('days_between_two_dates','&lt;=',360)],'readonly':[('state','in', ('progress','done'))]}"/>
+
+                         </group>
+                         <group>   
+                                 <field name="fiscalyear_id" on_change="onchange_fiscalyear_id(fiscalyear_id)" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="date_from" required="1" on_change="onchange_date_from(date_from, fiscalyear_id)" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="date_to" required="1" on_change="onchange_date_to(date_to, fiscalyear_id)" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                         </group>
+                         <group>
+                                 <field name="warehouse_id" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="sales_history" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                         </group>
+                         <group>
+                                 <field name="estimated_target" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="planned_target" readonly="1"/> 
+                         </group>
+                         <group>
+                                 <field name="sales_average" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                 <field name="target" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                         </group>
+                         <group>
+                                  <field name="achieved" attrs="{'readonly':[('state','in', ('progress','done'))]}"/>
+                                  <field name="days_between_two_dates" invisible="1"/>
+                         </group>
+                    </group>
+             <notebook>
+
+                    <page String="Product" attrs="{'invisible': [('is_product','=',False)]}">
+                            <button name="distribute" type="object" string="Distribute"/>
+                            <group colspan="64" col="32">
+                               <group>
+                                   <field name="p1" colspan="1"/>
+                                   <field name="p2" colspan="1"/>
+                                   <field name="p3" colspan="1"/>
+                               </group >
+                               <group>
+                                   <field name="p4" />
+                                   <field name="p5"/>
+                                   <field name="p6"/>
+                               </group>
+                               <group>
+                                   <field name="p7"/>
+                                   <field name="p8"/>
+                                   <field name="p9"/>
+                               </group>
+                               <group>
+                                   <field name="p10"/>
+                                   <field name="p11"/>
+                                   <field name="p12"/>
+                              </group>
+                            </group>
+                            <field name="product_line" attrs="{'readonly':[('state','in', ('progress','done'))]}">  
+                                 <tree editable="top">
+                                        <field name="is_brand" invisible="1"/>
+                                        <field name="is_customer" invisible="1"/>
+                                        <field name="is_salesman" invisible="1"/>
+                                        <field name="is_product" invisible="1"/>
+                                        <field name="is_category" invisible="1"/>
+                                        <field name="product_id" attrs="{'invisible': [('is_product','=',False)]}"/>
+                                        <field name="quantity"/>
+                                        <field name="average"/>
+                                        <field name="sale_value"/>
+                                        <field name="sale_price" invisible="1"/>
+                                        <field name="p1_qty"/>
+                                        <field name="p2_qty"/>
+                                        <field name="p3_qty"/>
+                                        <field name="p4_qty"/>
+                                        <field name="p5_qty"/>
+                                        <field name="p6_qty"/>
+                                        <field name="p7_qty"/> 
+                                        <field name="p8_qty"/>
+                                        <field name="p9_qty"/>
+                                        <field name="p10_qty"/>
+                                        <field name="p11_qty"/>
+                                        <field name="p12_qty"/>
+                                        <field name="total_computed_quantity"/>
+                                        <field name="total_computed_amount" invisible="1"/>
+                                 </tree>
+                          </field>
+                        <group class="oe_subtotal_footer oe_right">
+                           <button name="compute_distributed_quantity" type="object" string="Update" invisible="1"/>
+                         </group>
+                    </page>
+                    <page String="Brand" attrs="{'invisible':  [('is_brand','=',False)]}">
+                          <button name="distribute" type="object" string="Distribute"/>
+<!--                            <group colspan="64" col="32">-->
+<!--                               <group>-->
+<!--                                   <field name="p1" colspan="1"/>-->
+<!--                                   <field name="p2" colspan="1"/>-->
+<!--                                   <field name="p3" colspan="1"/>-->
+<!--                               </group >-->
+<!--                               <group>-->
+<!--                                   <field name="p4" />-->
+<!--                                   <field name="p5"/>-->
+<!--                                   <field name="p6"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p7"/>-->
+<!--                                   <field name="p8"/>-->
+<!--                                   <field name="p9"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p10"/>-->
+<!--                                   <field name="p11"/>-->
+<!--                                   <field name="p12"/>-->
+<!--                              </group>-->
+<!--                            </group>-->
+                          <field name="brand_line" attrs="{'readonly':[('state','in', ('progress','done'))]}">  
+                                <tree editable="top">
+                                        <field name="brand_id" />
+                                        <field name="average"/>
+                                        <field name="sale_value"/>
+                                        <field name="sale_price" invisible="1"/>
+                                        <field name="p1_qty" invisible="1"/>
+                                        <field name="p2_qty" invisible="1"/>
+                                        <field name="p3_qty" invisible="1"/>
+                                        <field name="p4_qty" invisible="1"/>
+                                        <field name="p5_qty" invisible="1"/>
+                                        <field name="p6_qty" invisible="1"/>
+                                        <field name="p7_qty" invisible="1"/> 
+                                        <field name="p8_qty" invisible="1"/>
+                                        <field name="p9_qty" invisible="1"/>
+                                        <field name="p10_qty" invisible="1"/>
+                                        <field name="p11_qty" invisible="1"/>
+                                        <field name="p12_qty" invisible="1"/>
+                                        <field name="p1_amount"/>
+                                        <field name="p2_amount"/>
+                                        <field name="p3_amount"/>
+                                        <field name="p4_amount"/>
+                                        <field name="p5_amount"/>
+                                        <field name="p6_amount"/>
+                                        <field name="p7_amount"/> 
+                                        <field name="p8_amount"/>
+                                        <field name="p9_amount"/>
+                                        <field name="p10_amount"/>
+                                        <field name="p11_amount"/>
+                                        <field name="p12_amount"/>
+                                        <field name="total_computed_quantity" invisible="1"/>
+                                        <field name="total_computed_amount" />
+                                </tree>
+                          </field>
+                         <group class="oe_subtotal_footer oe_right">
+                           <button name="compute_distributed_quantity" type="object" string="Update" invisible="1"/>
+                         </group>
+                    </page>
+                    <page String="Salesman" attrs="{'invisible': [('is_salesman','=',False)]}">
+                            <button name="distribute" type="object" string="Distribute"/>
+<!--                            <group colspan="64" col="32">-->
+<!--                               <group>-->
+<!--                                   <field name="p1" colspan="1"/>-->
+<!--                                   <field name="p2" colspan="1"/>-->
+<!--                                   <field name="p3" colspan="1"/>-->
+<!--                               </group >-->
+<!--                               <group>-->
+<!--                                   <field name="p4" />-->
+<!--                                   <field name="p5"/>-->
+<!--                                   <field name="p6"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p7"/>-->
+<!--                                   <field name="p8"/>-->
+<!--                                   <field name="p9"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p10"/>-->
+<!--                                   <field name="p11"/>-->
+<!--                                   <field name="p12"/>-->
+<!--                              </group>-->
+<!--                            </group>-->
+                            <field name="saleman_line" attrs="{'readonly':[('state','in', ('progress','done'))]}" >  
+                                 <tree editable="top">
+                                        <field name="salesman_id"/>
+                                        <field name="average"/>
+                                        <field name="sale_value"/>
+                                        <field name="sale_price" invisible="1"/>
+                                        <field name="p1_qty" invisible="1"/>
+                                        <field name="p2_qty" invisible="1"/>
+                                        <field name="p3_qty" invisible="1"/>
+                                        <field name="p4_qty" invisible="1"/>
+                                        <field name="p5_qty" invisible="1"/>
+                                        <field name="p6_qty" invisible="1"/>
+                                        <field name="p7_qty" invisible="1"/> 
+                                        <field name="p8_qty" invisible="1"/>
+                                        <field name="p9_qty" invisible="1"/>
+                                        <field name="p10_qty" invisible="1"/>
+                                        <field name="p11_qty" invisible="1"/>
+                                        <field name="p12_qty" invisible="1"/>
+                                        <field name="p1_amount"/>
+                                        <field name="p2_amount"/>
+                                        <field name="p3_amount"/>
+                                        <field name="p4_amount"/>
+                                        <field name="p5_amount"/>
+                                        <field name="p6_amount"/>
+                                        <field name="p7_amount"/> 
+                                        <field name="p8_amount"/>
+                                        <field name="p9_amount"/>
+                                        <field name="p10_amount"/>
+                                        <field name="p11_amount"/>
+                                        <field name="p12_amount"/>
+                                        <field name="total_computed_quantity" invisible="1"/>
+                                        <field name="total_computed_amount" />
+                                 </tree>
+                          </field>
+                        <group class="oe_subtotal_footer oe_right">
+                           <button name="compute_distributed_quantity" type="object" string="Update" invisible="1"/>
+                         </group>
+                      </page>
+                      <page String="Category" attrs="{'invisible': [('is_category','=',False)]}">
+                            <button name="distribute" type="object" string="Distribute"/>
+<!--                            <group colspan="64" col="32">-->
+<!--                               <group>-->
+<!--                                   <field name="p1" colspan="1"/>-->
+<!--                                   <field name="p2" colspan="1"/>-->
+<!--                                   <field name="p3" colspan="1"/>-->
+<!--                               </group >-->
+<!--                               <group>-->
+<!--                                   <field name="p4" />-->
+<!--                                   <field name="p5"/>-->
+<!--                                   <field name="p6"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p7"/>-->
+<!--                                   <field name="p8"/>-->
+<!--                                   <field name="p9"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p10"/>-->
+<!--                                   <field name="p11"/>-->
+<!--                                   <field name="p12"/>-->
+<!--                              </group>-->
+<!--                            </group>-->
+                            <field name="category_line" attrs="{'readonly':[('state','in', ('progress','done'))]}">  
+                                 <tree editable="top">
+                                        <field name="category_id"/>
+                                        <field name="average"/>
+                                        <field name="sale_value"/>
+                                        <field name="sale_price" invisible="1"/>
+                                        <field name="p1_qty" invisible="1"/>
+                                        <field name="p2_qty" invisible="1"/>
+                                        <field name="p3_qty" invisible="1"/>
+                                        <field name="p4_qty" invisible="1"/>
+                                        <field name="p5_qty" invisible="1"/>
+                                        <field name="p6_qty" invisible="1"/>
+                                        <field name="p7_qty" invisible="1"/> 
+                                        <field name="p8_qty" invisible="1"/>
+                                        <field name="p9_qty" invisible="1"/>
+                                        <field name="p10_qty" invisible="1"/>
+                                        <field name="p11_qty" invisible="1"/>
+                                        <field name="p12_qty" invisible="1"/>
+                                        <field name="p1_amount"/>
+                                        <field name="p2_amount"/>
+                                        <field name="p3_amount"/>
+                                        <field name="p4_amount"/>
+                                        <field name="p5_amount"/>
+                                        <field name="p6_amount"/>
+                                        <field name="p7_amount"/> 
+                                        <field name="p8_amount"/>
+                                        <field name="p9_amount"/>
+                                        <field name="p10_amount"/>
+                                        <field name="p11_amount"/>
+                                        <field name="p12_amount"/> 
+                                        <field name="total_computed_quantity" invisible="1"/>
+                                        <field name="total_computed_amount" />
+                                 </tree>
+                          </field>
+                        <group class="oe_subtotal_footer oe_right">
+                           <button name="compute_distributed_quantity" type="object" string="Update" invisible="1"/>
+                        </group>
+                       </page>
+                       <page String="Customer" attrs="{'invisible': [('is_customer','=',False)]}">
+                            <button name="distribute" type="object" string="Distribute"/>
+<!--                            <group colspan="64" col="32">-->
+<!--                               <group>-->
+<!--                                   <field name="p1" colspan="1"/>-->
+<!--                                   <field name="p2" colspan="1"/>-->
+<!--                                   <field name="p3" colspan="1"/>-->
+<!--                               </group >-->
+<!--                               <group>-->
+<!--                                   <field name="p4" />-->
+<!--                                   <field name="p5"/>-->
+<!--                                   <field name="p6"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p7"/>-->
+<!--                                   <field name="p8"/>-->
+<!--                                   <field name="p9"/>-->
+<!--                               </group>-->
+<!--                               <group>-->
+<!--                                   <field name="p10"/>-->
+<!--                                   <field name="p11"/>-->
+<!--                                   <field name="p12"/>-->
+<!--                              </group>-->
+<!--                            </group>-->
+                            <field name="customer_line" attrs="{'readonly':[('state','in', ('progress','done'))]}">  
+                                 <tree editable="top">
+                                        <field name="customer_id"/>
+                                        <field name="average"/>
+                                        <field name="sale_value"/>
+                                        <field name="sale_price" invisible="1"/>
+                                        <field name="p1_qty" invisible="1"/>
+                                        <field name="p2_qty" invisible="1"/>
+                                        <field name="p3_qty" invisible="1"/>
+                                        <field name="p4_qty" invisible="1"/>
+                                        <field name="p5_qty" invisible="1"/>
+                                        <field name="p6_qty" invisible="1"/>
+                                        <field name="p7_qty" invisible="1"/> 
+                                        <field name="p8_qty" invisible="1"/>
+                                        <field name="p9_qty" invisible="1"/>
+                                        <field name="p10_qty" invisible="1"/>
+                                        <field name="p11_qty" invisible="1"/>
+                                        <field name="p12_qty" invisible="1"/>
+                                        <field name="p1_amount"/>
+                                        <field name="p2_amount"/>
+                                        <field name="p3_amount"/>
+                                        <field name="p4_amount"/>
+                                        <field name="p5_amount"/>
+                                        <field name="p6_amount"/>
+                                        <field name="p7_amount"/> 
+                                        <field name="p8_amount"/>
+                                        <field name="p9_amount"/>
+                                        <field name="p10_amount"/>
+                                        <field name="p11_amount"/>
+                                        <field name="p12_amount"/>
+                                        <field name="total_computed_quantity" invisible="1"/>
+                                        <field name="total_computed_amount" />
+                                 </tree>
+                          </field>
+                        <group class="oe_subtotal_footer oe_right">
+                           <button name="compute_distributed_quantity" type="object" string="Update" invisible="1"/>
+                        </group>
+                      </page>
+               </notebook>
+                   <group>
+                         <field name="is_customer" invisible="1"/>
+                         <field name="is_brand" invisible="1"/>
+                         <field name="is_product" invisible="1"/>
+                   </group>
+                   <group>
+                         <field name="is_category" invisible="1"/>
+                         <field name="is_salesman" invisible="1"/>
+                   </group>
+           </sheet>
+       </form>
+    </field>
+  </record>
+  <record model="ir.ui.view" id="od_sales_target_generate_button_form">
+        <field name="name">od.sales.target.form.view</field>
+        <field name="model">od.sales.target</field>
+        <field eval="30" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Target Master" version="7.0">
+                  <header>
+                       <button name="back" type="object" 
+                          string="Back" />
+                   </header>
+                <sheet>
+                    <header>
+                         <button name="action_generate" type="object" 
+                          string="Process"/>
+                    </header>
+                    <group>
+                        <group>
+                             <field name="name" readonly="1"/>
+                             <field name="company_id" readonly="1"/>
+                             <field name="period_type" readonly="1"/>
+                        </group>
+                        <group>
+                             <field name="date_from" readonly="1"/>
+                             <field name="date_to" readonly="1"/>
+                        </group>
+                        <group>
+                             <field name="warehouse_id" readonly="1"/>
+                             <field name="sales_history" readonly="1"/>
+                        </group>
+                        <group>
+                             <field name="estimated_target" readonly="1"/>
+                              <field name="planned_target" readonly="1"/> 
+                        </group>
+s                       <group>
+                             <field name="sales_average" readonly="1"/>
+                             <field name="target" readonly="1"/>
+                        </group>
+                        <group>
+                             <field name="achieved" readonly="1"/>
+                        </group>
+                        <group>
+                             <field name="is_customer" on_change="onchange_is_customer(is_customer)"/>
+                             <field name="is_brand" on_change="onchange_is_brand(is_brand)"/>
+                             <field name="is_product" on_change="onchange_is_product(is_product)"/>
+                        </group>
+                        <group>
+                             <field name="is_category" on_change="onchange_is_category(is_category)"/>
+                             <field name="is_salesman"  on_change="onchange_is_salesman(is_salesman)"/>
+                        </group>
+                        </group>
+                       <notebook>
+                               <page String="Product" >
+                                     <field name="product_line" > 
+                                        <tree editable="top">
+                                            <field name="product_id"/>
+                                            <field name="brand_id"/>
+                                            <field name="is_brand" invisible="1"/>
+                                            <field name="is_customer" invisible="1"/>
+                                            <field name="is_salesman" invisible="1"/>
+                                            <field name="is_product" invisible="1"/>
+                                            <field name="is_category" invisible="1"/>
+                                            <field name="salesman_id"/>
+                                            <field name="customer_id"/>
+                                            <field name="category_id"/>
+                                            <field name="quantity"/>
+                                            <field name="sale_price" invisible="1"/>
+                                            <field name="sale_value"/>
+                                            <field name="average"/>
+                                        </tree>
+                                        <form>
+                                             <group>
+                                                 <group>
+                                                    <field name="product_id"/>
+                                                 </group>
+                                                 <group>
+                                                    <field name="brand_id"/>
+                                                    <field name="salesman_id"/>
+                                                 </group>
+                                                 <group>
+                                                    <field name="customer_id"/>
+                                                    <field name="category_id"/>
+                                                 </group>
+                                                 <group>
+                                                    <field name="supplier_id"/>
+                                                    <field name="channel"/>
+                                                 </group>
+                                                 <group>
+                                                    <field name="p1_amount" />
+                                                    <field name="p2_amount" />
+                                                    <field name="p3_amount" />
+                                                    <field name="p4_amount" /> 
+                                                 </group>
+                                                 <group>
+                                                    <field name="p1_qty" />
+                                                    <field name="p2_qty" />
+                                                    <field name="p3_qty"/>
+                                                    <field name="p4_qty" />
+                                                  </group>
+                                                  <group>
+                                                    <field name="p5_amount" />
+                                                    <field name="p6_amount"/>
+                                                    <field name="p7_amount" />
+                                                    <field name="p8_amount" />
+                                                  </group>
+                                                  <group>
+                                                    <field name="p5_qty" />
+                                                    <field name="p6_qty" />
+                                                    <field name="p7_qty" /> 
+                                                    <field name="p8_qty" />
+                                                  </group>
+                                                  <group>
+                                                    <field name="p9_amount" />
+                                                    <field name="p10_amount" /> 
+                                                    <field name="p11_amount" />
+                                                    <field name="p12_amount" /> 
+                                                  </group>
+                                                  <group>
+                                                    <field name="p9_qty" />
+                                                    <field name="p10_qty" />
+                                                    <field name="p11_qty" />
+                                                    <field name="p12_qty"/>
+                                                  </group>
+                                                  <group>
+                                                    <field name="quantity"/>
+                                                    <field name="amount"/>
+                                                    <field name="sale_price"/>
+                                                      <field name="average"/>
+                                                  </group>
+                                            </group>
+                                      </form>
+                               </field>
+                          </page>
+            </notebook>
+       </sheet>
+    </form>
+  </field>
+ </record>
+
+<record model="ir.actions.act_window" id="od_sales_target_action1">
+        <field name="name">Sales Forecast</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.sales.target</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Sales Forecast. 
+          </p>
+        </field>
+    </record>
+
+<record model="ir.actions.act_window" id="od_sales_target_action3">
+        <field name="name">Sales Forecast</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.sales.target</field>
+        <field eval="30" name="priority"/>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Sales Forecast. 
+          </p>
+        </field>
+    </record>
+
+<record model="ir.actions.act_window" id="od_sales_target_action2">
+        <field name="name">Sales Forecast</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.sales.target</field>
+         <field eval="30" name="priority"/>
+        <field name="view_type">form</field>
+        <field name="view_mode">form,tree</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Sales Forecast. 
+          </p>
+        </field>
+    </record>
+
+   <record id="od_sales_target_action4" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="od_sales_target_generate_button_form"/>
+        <field name="act_window_id" ref="od_sales_target_action2"/>
+   </record>
+  <menuitem id="menu_target" name="Sale Forecast" action="od_sales_target_action1" parent="base.menu_base_config" sequence="37"/>
+ </data>
+</openerp>

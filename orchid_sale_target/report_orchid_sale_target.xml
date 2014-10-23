@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_od_sales_target"
+            string="Target Sheet"
+            model="od.sales.target" 
+            report_type="qweb-pdf"
+            file="orchid_sale_target.report_od_sales_target_document" 
+            name="orchid_sale_target.report_od_sales_target_document"
+       
+        />
+    </data>
+</openerp>    
+
+  
