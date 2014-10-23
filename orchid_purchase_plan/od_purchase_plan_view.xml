@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record model="ir.ui.view" id="od_purchase_plan_tree_view">
+        <field name="name">od.purchase.plan.tree.view</field>
+        <field name="model">od.purchase.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Plan" >
+                    <field name="name"/>
+                    <field name="fiscalyear_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+  <record model="ir.ui.view" id="od_purchase_plan_graph">
+    <field name="name">od.purchase.plan.graph.view</field>
+    <field name="model">od.purchase.plan</field>
+    <field name="arch" type="xml">
+           <graph string="Purchase Plan" type="bar">
+               <field name="name" type="row"/>
+           </graph>
+     </field>
+   </record>
+
+
+    <record model="ir.ui.view" id="od_purchase_plan_form_view">
+        <field name="name">od.purchase.plan.form.view</field>
+        <field name="model">od.purchase.plan</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Plan" version="7.0">
+
+                 <header>
+                    <button name="create_sale_forecast" type="object" 
+                             string="Generate From Sale Target"/>
+                </header>
+                <sheet>
+                    <group>
+                         <group> 
+                                 <field name="name"/>
+                                 <field name="sale_forecast_id" invisible="1"/>
+                                 <field name="company_id" />
+                                 <field name="pricelist_id" />
+                                  <field name="warehouse_id"/>
+                         </group>
+                         <group>   
+                                 <field name="fiscalyear_id" />
+                                 <field name="date_from" required="1"/>
+                                 <field name="date_to" required="1"/>
+                                  <field name="planned_target" />
+                         </group>
+                         </group>
+             <notebook>
+                    <page String="Product">
+                            <button name="compute_distributed_quantity" type="object" string="Compute"/>
+                            <field name="product_line">  
+                                 <tree editable="top">
+                                       <field name="product_id" />
+                                       <field name="supplier_id" />
+                                       <field name="quantity" invisible="1"/>
+                                       <field name="average" invisible="1"/>
+                                       <field name="sale_value" invisible="1"/>
+                                       <field name="delay"/>
+                                       <field name="price"/>
+                                       <field name="sale_price" invisible="1"/>
+                                       <field name="p1_qty"/>
+                                       <field name="p2_qty"/>
+                                       <field name="p3_qty"/>
+                                       <field name="p4_qty"/>
+                                       <field name="p5_qty"/>
+                                       <field name="p6_qty"/>
+                                       <field name="p7_qty"/> 
+                                       <field name="p8_qty"/>
+                                       <field name="p9_qty"/>
+                                       <field name="p10_qty"/>
+                                       <field name="p11_qty"/>
+                                       <field name="p12_qty"/>
+                                       <field name="p1_amount" invisible="1"/>
+                                       <field name="p2_amount" invisible="1"/>
+                                       <field name="p3_amount" invisible="1"/>
+                                       <field name="p4_amount" invisible="1"/>
+                                       <field name="p5_amount" invisible="1"/>
+                                       <field name="p6_amount" invisible="1"/>
+                                       <field name="p7_amount" invisible="1"/>
+                                       <field name="p8_amount" invisible="1"/>
+                                       <field name="p9_amount" invisible="1"/>
+                                       <field name="p10_amount" invisible="1"/>
+                                       <field name="p11_amount" invisible="1"/>
+                                       <field name="p12_amount" invisible="1"/>
+                                       <field name="total_computed_quantity"/>
+                                      <field name="total_computed_amount" invisible="1"/>
+                                 </tree>
+                          </field>
+                      </page>
+               </notebook>
+           </sheet>
+       </form>
+    </field>
+  </record>
+<record model="ir.actions.act_window" id="od_purchase_plan_action">
+        <field name="name">Purchase Plan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">od.purchase.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+         <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to add new Purchase Plan. 
+          </p>
+        </field>
+    </record>
+  <menuitem id="menu_purchase_plan_id" name="Purchase Plan" action="od_purchase_plan_action" parent="purchase.menu_purchase_config_purchase" sequence="32"/>
+ </data>
+</openerp>

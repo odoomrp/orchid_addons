@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>     
+   <record id="od_sales_target_form_inherit" model="ir.ui.view">
+            <field name="name">od.sales.target.form.inherit</field>
+            <field name="model">od.sales.target</field>
+            <field name="inherit_id" ref="orchid_sale_target.od_sales_target_form"/>
+            <field name="arch" type="xml">
+               <field name="name" position="after">
+                    <field name="purchase_plan_id" invisible="1"/>
+               </field>
+                    <button name="action_done" position="after">
+                        <button name="%(orchid_purchase_plan.action_purchase_plan_selection)d" type="action" 
+                             string="Create Purchase Plan"/> 
+                    </button>
+            </field>
+   </record>
+  </data>
+</openerp>

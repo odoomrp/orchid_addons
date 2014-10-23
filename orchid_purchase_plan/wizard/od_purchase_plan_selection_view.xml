@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+       <record id="od_purchase_plan_selection_view" model="ir.ui.view">
+            <field name="name">Purchase Plan Selection</field>
+            <field name="model">od.purchase.plan.selection</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Plan Selection">
+                     <group>
+                         <group>
+                              <field name="selection_type"/>
+                         </group>
+                         <group></group>
+                     </group>
+                     <footer>
+                        <button name="create_purchase_plan" type="object" string="Create Purchase Plan" class="oe_highlight"/>
+                     </footer>
+                </form>
+            </field>
+       </record>
+       <record id="action_purchase_plan_selection" model="ir.actions.act_window">
+            <field name="name">Purchase Plan Selection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">od.purchase.plan.selection</field>
+            <field name="view_id" ref="od_purchase_plan_selection_view"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'form_view_ref': False}</field>
+        </record>
+    </data>
+</openerp>
