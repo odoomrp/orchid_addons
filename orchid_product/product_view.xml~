@@ -1,0 +1,482 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+<!--Product Group Form-->
+<record id="od_product_group_form" model="ir.ui.view">
+    <field name="name">Od Product Group Form</field>
+    <field name="model">od.product.group</field>
+    <field name="arch" type="xml">
+        <form string="Product Group" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+               
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Group  tree-->
+<record id="od_product_group_tree" model="ir.ui.view">
+    <field name="name">Od Product Group Tree</field>
+    <field name="model">od.product.group</field>
+    <field name="arch" type="xml">
+        <tree string="Product Group" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.group<-->
+<record id="od_product_group_action" model="ir.actions.act_window">
+    <field name="name">Product Group</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.group</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Group.
+        </p>
+    </field>
+</record>
+
+
+<!--Product Sub Group Form-->
+<record id="od_product_sub_group_form" model="ir.ui.view">
+    <field name="name">Od Product Sub Group Form</field>
+    <field name="model">od.product.sub.group</field>
+    <field name="arch" type="xml">
+        <form string="Product Sub Group" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Sub Group  tree-->
+<record id="od_product_sub_group_tree" model="ir.ui.view">
+    <field name="name">Od Product Sub Group Tree</field>
+    <field name="model">od.product.sub.group</field>
+    <field name="arch" type="xml">
+        <tree string="Product Sub Group" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.sub.group<-->
+<record id="od_product_sub_group_action" model="ir.actions.act_window">
+    <field name="name">Product Sub Group</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.sub.group</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Sub Group.
+        </p>
+    </field>
+</record>
+
+<!--Product Type Form-->
+<record id="od_product_type_form" model="ir.ui.view">
+    <field name="name">Od Product Type Form</field>
+    <field name="model">od.product.type</field>
+    <field name="arch" type="xml">
+        <form string="Product Type" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Type  tree-->
+<record id="od_product_type_tree" model="ir.ui.view">
+    <field name="name">Od Product Type Tree</field>
+    <field name="model">od.product.type</field>
+    <field name="arch" type="xml">
+        <tree string="Product Type" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.type<-->
+<record id="od_product_type_action" model="ir.actions.act_window">
+    <field name="name">Product Type</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.type</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Type.
+        </p>
+    </field>
+</record>
+
+
+<!--Product Sub Type Form-->
+<record id="od_product_sub_type_form" model="ir.ui.view">
+    <field name="name">Od Product Sub Type Form</field>
+    <field name="model">od.product.sub.type</field>
+    <field name="arch" type="xml">
+        <form string="Product Sub Type" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Sub Type  tree-->
+<record id="od_product_sub_type_tree" model="ir.ui.view">
+    <field name="name">Od Product Sub Type Tree</field>
+    <field name="model">od.product.sub.type</field>
+    <field name="arch" type="xml">
+        <tree string="Product Sub Type" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.sub.type<-->
+<record id="od_product_sub_type_action" model="ir.actions.act_window">
+    <field name="name">Product Sub Type</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.sub.type</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Sub Type.
+        </p>
+    </field>
+</record>
+
+
+<!--Product Classification Form-->
+<record id="od_product_classification_form" model="ir.ui.view">
+    <field name="name">Od Product Classification Form</field>
+    <field name="model">od.product.classification</field>
+    <field name="arch" type="xml">
+        <form string="Product Classification" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Classification  tree-->
+<record id="od_product_classification_tree" model="ir.ui.view">
+    <field name="name">Od Product Classification Tree</field>
+    <field name="model">od.product.classification</field>
+    <field name="arch" type="xml">
+        <tree string="Product Classification" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.classification<-->
+<record id="od_product_classification_action" model="ir.actions.act_window">
+    <field name="name">Product Classification</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.classification</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Classification.
+        </p>
+    </field>
+</record>
+
+
+<!--Product Brand Form-->
+<record id="od_product_brand_form" model="ir.ui.view">
+    <field name="name">Od Product Brand Form</field>
+    <field name="model">od.product.brand</field>
+    <field name="arch" type="xml">
+        <form string="Product Brand" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+                        <label for="code"/>
+                        <h2><field name="code" /></h2>
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product Brand  tree-->
+<record id="od_product_brand_tree" model="ir.ui.view">
+    <field name="name">Od Product Brand Tree</field>
+    <field name="model">od.product.brand</field>
+    <field name="arch" type="xml">
+        <tree string="Product Brand" version="7.0">
+            <field name="name"/>
+            <field name="code"/>
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.brand<-->
+<record id="od_product_brand_action" model="ir.actions.act_window">
+    <field name="name">Product Brand</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.brand</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product Brand.
+        </p>
+    </field>
+</record>
+
+
+
+
+<!--Product HScode Form-->
+<record id="od_product_hscode_form" model="ir.ui.view">
+    <field name="name">Od Product HS Code Form</field>
+    <field name="model">od.product.hscode</field>
+    <field name="arch" type="xml">
+        <form string="Product HScode" version="7.0">
+            <sheet>
+                <group>
+                    <group>
+<!--                        <label for="code"/>-->
+<!--                        <h2><field name="code" /></h2>-->
+                        <label for="name"/>
+                        <h2><field name="name"/>    </h2>
+                                  <label for="customs_duty_percentage"/>
+                <h2><field name="customs_duty_percentage"/></h2>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+                <field name="description" class="oe_inline" placeholder="Description....."/>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!--Product HScode  tree-->
+<record id="od_product_hscode_tree" model="ir.ui.view">
+    <field name="name">Od Product HScode Tree</field>
+    <field name="model">od.product.hscode</field>
+    <field name="arch" type="xml">
+        <tree string="Product HScode" version="7.0">
+            <field name="name"/>
+<!--            <field name="code"/>-->
+        </tree>
+    </field>
+</record>
+
+<!--action od.product.hscode<-->
+<record id="od_product_hscode_action" model="ir.actions.act_window">
+    <field name="name">Product HScode</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">od.product.hscode</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+            Click to define a new Product HScode.
+        </p>
+    </field>
+</record>
+
+
+
+        <record id="od_product_template_search_view" model="ir.ui.view">
+            <field name="name">od.product.template.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <filter string='Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}" position="replace">
+                    <filter string='Product Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type'}"/>
+                    <filter string='Group' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_group_id'}"/>
+                    <filter string='Sub Group' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_sub_group_id'}"/>
+                    <filter string='Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_type_id'}"/>
+                    <filter string='Sub Type' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_sub_type_id'}"/>
+
+                <filter string='Brand' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_brand_id'}"/>
+
+                    <filter string='Classification' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_classification_id'}"/>
+                    <filter string='HS Code' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'od_pdt_hscode_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+
+
+
+         <record id="od_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.product.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@string='Sales']" position="after">
+                        <page name="od_product_configuration" string="Product Configuration" groups="orchid_product.group_product_grouping,orchid_product.group_company_product_grouping">
+
+                            <group>
+                                <group>
+                                    <field name="od_pdt_group_id" groups="orchid_product.group_product_grouping"/>
+                                    <field name="od_pdt_sub_group_id" groups="orchid_product.group_product_grouping"/>
+                                    <field name="od_pdt_type_id" groups="orchid_product.group_product_grouping"/>
+                                </group>
+                                <group>
+                                    <field name="od_pdt_sub_type_id" groups="orchid_product.group_product_grouping"/>
+                                    <field name="od_pdt_brand_id" groups="orchid_product.group_product_grouping"/>
+                                    <field name="od_pdt_classification_id" groups="orchid_product.group_product_grouping"/>
+                                    <field name="od_pdt_hscode_id" groups="orchid_product.group_product_grouping"/>
+                                </group>
+                            </group>
+                            <field name="od_company_id" groups="orchid_product.group_company_product_grouping">
+                                <tree string="Companies">
+                                    <field name="name"/>
+                                    <field name="street"/>
+                                </tree>
+                            </field>
+                        </page>
+                    
+                </xpath>
+            <field name="company_id" position="replace">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1"/>
+            </field>
+        </record>
+
+
+<!--        <record id="view_company_form" model="ir.ui.view">-->
+<!--            <field name="name">res.company.form</field>-->
+<!--            <field name="model">res.company</field>-->
+<!--            <field name="inherit_id" ref="base.view_company_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="name" position="after">-->
+<!--                    <field name="od_product_id" invisible="1"/>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <menuitem
+            id="od_menu_product_template_config_stock" name="Configuration"
+            parent="stock.menu_product_in_config_stock" sequence="1" groups="orchid_product.group_product_grouping"/>
+        <menuitem
+            action="od_product_group_action" id="menu_od_product_group" name="Group"
+            parent="od_menu_product_template_config_stock" sequence="2" groups="orchid_product.group_product_grouping"/>
+        <menuitem
+            action="od_product_sub_group_action" id="menu_od_product_sub_group" name="Sub Group"
+            parent="od_menu_product_template_config_stock" sequence="3" groups="orchid_product.group_product_grouping"/>
+        <menuitem
+            action="od_product_type_action" id="menu_od_product_type" name="Type"
+            parent="od_menu_product_template_config_stock" sequence="4" groups="orchid_product.group_product_grouping"/>
+
+
+
+
+        <menuitem
+            action="od_product_sub_type_action" id="menu_od_product_sub_type" name="Sub Type"
+            parent="od_menu_product_template_config_stock" sequence="5" groups="orchid_product.group_product_grouping"/>
+
+        <menuitem
+            action="od_product_classification_action" id="menu_od_product_classification" name="Classification"
+            parent="od_menu_product_template_config_stock" sequence="6" groups="orchid_product.group_product_grouping"/>
+
+
+        <menuitem
+            action="od_product_brand_action" id="menu_od_product_brand" name="Brand"
+            parent="od_menu_product_template_config_stock" sequence="7"/>
+
+        <menuitem
+            action="od_product_hscode_action" id="menu_od_product_hscode" name="HS Code"
+            parent="od_menu_product_template_config_stock" sequence="8"/>
+
+
+
+
+    </data>
+</openerp>
